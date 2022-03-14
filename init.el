@@ -1,4 +1,4 @@
-;; From emacs from scratch tutorial on youtube
+;; emacs init.el
 
 (setq inhibit-startup-message -1)  ; Disable startup message
 (scroll-bar-mode -1)               ; Disable visible scrollbar
@@ -18,7 +18,6 @@
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-       			 ("org" . "https://orgmode.org/elpa/")
 			 ("elpa" . "https://elpa.gnu.org/packages")
 			 ("org" . "https://orgmode.org/elpa/")))
 
@@ -61,7 +60,6 @@
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
 		org-agenda-mode-hook
-		;;org-agenda-finalize-hook
 		term-mode-hook
 		shell-mode-hook	       
 		eshell-mode-hook))
@@ -78,11 +76,14 @@
   :config
   (setq which-key-idle-delay 0.3))
 
+
+;; ************** orgmode related **************
+
 (use-package org)
 
 ;; define key to enable line wrap in orgmode
 ;; From https://superuser.com/questions/299886/linewrap-in-org-mode-of-emacs#:~:text=Org%20mode%20does%20not%20wrap,that%20instead%20of%20line%20wrapping.
-(define-key org-mode-map "\M-q" 'toggle-truncate-lines)
+(define-key org-mode-map "\M-q" 'toggle-truncate-lines) ; Does not seem to work. Need to explore further (TODO)
 
 ;; Set orgmode todo states
 (setq org-todo-keywords
