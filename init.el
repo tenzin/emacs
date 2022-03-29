@@ -89,6 +89,14 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "DEFERRED(f)" "CANCELLED(c)")))
 
+;; Set orgmode faces for TODO keywords
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "pink" :weight bold))
+	("IN-PROGRESS" . "#E35DBF")
+	("CANCELLED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+	("WAITING" . (:foreground "#ff39a3" :weight bold))
+	("DEFERRED" . "#008080")))
+
 ;; set timestamp when you move TODOs to DONE
 (setq org-log-done t)
 
