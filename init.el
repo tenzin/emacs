@@ -122,11 +122,21 @@
 	("f" "Financial" entry (file+headline "~/orgmode/gtd.org" "Financial")
 	 "* TODO %?\n  Entered on: %U\n %i" :empty-lines 1)
 	("p" "PROJECTS" entry (file+headline "~/orgmode/gtd.org" "Projects")
-	 "* %?\n  Entered on: %U\n %i" :empty-lines 1)
+	 "* TODO  %?\n  Entered on: %U\n %i" :empty-lines 1)
         ("j" "Journal" entry (file+datetree "~/orgmode/journal.org")
          "* %?\nEntered on: %U\n  %i" :empty-lines 1)
 	("n" "Note" entry (file+datetree "~/orgmode/notes.org")
          "* %?\nEntered on: %U\n  %i" :empty-lines 1)))
+
+;; Set to the location of your Org files on your local system
+(setq org-directory "~/orgmode")
+;; Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/orgmode/from-mobile.org")
+;; Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+
+;; set refile options to show when refiling [C-c C-w]
+(setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
 
 ;; Make emacs show org-agenda menu on startup - Does not look helpful - hence commented for now
 ;;(add-hook 'after-init-hook 'org-agenda)
@@ -136,7 +146,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files '("~/orgmode/gtd.org"))
+ '(org-agenda-files '("~/orgmode/gtd.org" "~/orgmode/from-mobile.org"))
  '(org-agenda-todo-list-sublevels nil)
  '(org-enforce-todo-dependencies t)
  '(package-selected-packages
