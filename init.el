@@ -81,6 +81,9 @@
 
 (use-package org)
 
+;; Set chime sound for to be used with org-timer-set-timer
+(setq org-clock-sound "~/emacsthings/chime.wav")
+
 ;; define key to enable line wrap in orgmode
 ;; From https://superuser.com/questions/299886/linewrap-in-org-mode-of-emacs#:~:text=Org%20mode%20does%20not%20wrap,that%20instead%20of%20line%20wrapping.
 (define-key org-mode-map "\M-q" 'toggle-truncate-lines) ; Does not seem to work. Need to explore further (TODO)
@@ -121,11 +124,15 @@
 	 "* TODO %?\n  Entered on: %U\n %i\n  %a" :empty-lines 1)
 	("f" "Financial" entry (file+headline "~/orgmode/gtd.org" "Financial")
 	 "* TODO %?\n  Entered on: %U\n %i" :empty-lines 1)
+	("r" "Readings" entry (file+headline "~/orgmode/gtd.org" "Readings")
+	 "* TODO %?\n  Entered on: %U\n %i" :empty-lines 1)
 	("p" "PROJECTS" entry (file+headline "~/orgmode/gtd.org" "Projects")
+	 "* TODO  %?\n  Entered on: %U\n %i" :empty-lines 1)
+	("7" "RBFE 7" entry (file+headline "~/orgmode/gtd.org" "RBFE 7")
 	 "* TODO  %?\n  Entered on: %U\n %i" :empty-lines 1)
         ("j" "Journal" entry (file+datetree "~/orgmode/journal.org")
          "* %?\nEntered on: %U\n  %i" :empty-lines 1)
-	("n" "Note" entry (file+datetree "~/orgmode/notes.org")
+	("n" "Note" entry (file "~/orgmode/notes.org")
          "* %?\nEntered on: %U\n  %i" :empty-lines 1)))
 
 ;; Set to the location of your Org files on your local system
