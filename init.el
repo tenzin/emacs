@@ -1,10 +1,11 @@
 ;; emacs init.el
 
-(setq inhibit-startup-message -1)  ; Disable startup message
-(scroll-bar-mode -1)               ; Disable visible scrollbar
-(tool-bar-mode -1)                 ; Disable the toolbar
-(tooltip-mode -1)                  ; Disable tooltip
-(set-fringe-mode 10)               ; Give some breathing room
+;;
+;;(setq inhibit-startup-message -1)  ; Disable startup message
+;;(scroll-bar-mode -1)               ; Disable visible scrollbar
+;;(tool-bar-mode -1)                 ; Disable the toolbar
+;;(tooltip-mode -1)                  ; Disable tooltip
+;;(set-fringe-mode 10)               ; Give some breathing room
 (menu-bar-mode -1)                 ; Disable menu bar
 
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 130)
@@ -45,10 +46,10 @@
   :if (display-graphic-p))
 
 ;; use doom-modeline
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
+;;(use-package doom-modeline
+;;  :ensure t
+;;  :init (doom-modeline-mode 1)
+;;  :custom ((doom-modeline-height 15)))
 
 ;; Temporary fix for doom-modeline hiding orgmode tags
 (advice-add #'fit-window-to-buffer :before (lambda (&rest _) (redisplay t)))
@@ -82,11 +83,34 @@
 (use-package org)
 
 ;; Set chime sound for to be used with org-timer-set-timer
-(setq org-clock-sound "~/emacsthings/chime.wav")
+;; (setq org-clock-sound "~/emacsthings/chime.wav")
+
+;; Following GTD implemetation from : https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
+
+;; Set to the location of your Org files on your local system
+(setq org-directory "~/gtd")
+
+
+(setq org-agenda-file '("~/gtd/inbox.org"
+			"~/gtd/gtd.org"
+			"~/gtd/tickler.org"))
+
+(setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline "~/gtd/inbox.org" "Tasks")
+                               "* TODO %? \n  Entered on: %U\n %i\n %a")
+                              ("T" "Tickler" entry
+                               (file+headline "~/gtd/tickler.org" "Tickler")
+                               "* %i%? \n Entered on: %U\n %i\n %a")))
+
+(setq org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
+                           ("~/gtd/someday.org" :level . 1)
+                           ("~/gtd/tickler.org" :maxlevel . 2)))
+
+
 
 ;; define key to enable line wrap in orgmode
 ;; From https://superuser.com/questions/299886/linewrap-in-org-mode-of-emacs#:~:text=Org%20mode%20does%20not%20wrap,that%20instead%20of%20line%20wrapping.
-(define-key org-mode-map "\M-q" 'toggle-truncate-lines) ; Does not seem to work. Need to explore further (TODO)
+;; (define-key org-mode-map "\M-q" 'toggle-truncate-lines) ; Does not seem to work. Need to explore further (TODO)
 
 ;; Set orgmode todo states
 (setq org-todo-keywords
@@ -117,33 +141,11 @@
                       (:endgroup . nil)
                       ("COMPUTER" . ?c) ("PHONE" . ?p) ("READING" . ?r) ("BICYCLE" . ?b)))
 
-;; org-capture configs and template
-;; (setq org-default-notes-file (concat org-directory "~/orgmode/notes.org"))
-(setq org-capture-templates
-      '(("t" "TASKS" entry (file+headline "~/orgmode/gtd.org" "Tasks")
-	 "* TODO %?\n  Entered on: %U\n %i\n  %a" :empty-lines 1)
-	("f" "Financial" entry (file+headline "~/orgmode/gtd.org" "Financial")
-	 "* TODO %?\n  Entered on: %U\n %i" :empty-lines 1)
-	("r" "Readings" entry (file+headline "~/orgmode/gtd.org" "Readings")
-	 "* TODO %?\n  Entered on: %U\n %i" :empty-lines 1)
-	("p" "PROJECTS" entry (file+headline "~/orgmode/gtd.org" "Projects")
-	 "* TODO %?\n  Entered on: %U\n %i" :empty-lines 1)
-	("7" "RBFE 7" entry (file+headline "~/orgmode/gtd.org" "RBFE 7")
-	 "* TODO %?\n  Entered on: %U\n %i\n %a" :empty-lines 1)
-        ("j" "Journal" entry (file+datetree "~/orgmode/journal.org")
-         "* %?\nEntered on: %U\n  %i" :empty-lines 1)
-	("n" "Note" entry (file "~/orgmode/notes.org")
-         "* %?\nEntered on: %U\n  %i" :empty-lines 1)))
-
-;; Set to the location of your Org files on your local system
-(setq org-directory "~/orgmode")
-;; Set to the name of the file where new notes will be stored
-(setq org-mobile-inbox-for-pull "~/orgmode/from-mobile.org")
-;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 
 ;; set refile options to show when refiling [C-c C-w]
-(setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
+(setq org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
+                           ("~/gtd/someday.org" :level . 1)
+                           ("~/gtd/tickler.org" :maxlevel . 2)))
 
 ;; Make emacs show org-agenda menu on startup - Does not look helpful - hence commented for now
 ;;(add-hook 'after-init-hook 'org-agenda)
@@ -153,8 +155,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   '("~/orgmode/gtd.org" "~/orgmode/from-mobile.org" "~/orgmode/notes.org"))
  '(org-agenda-todo-list-sublevels nil)
  '(org-enforce-todo-dependencies t)
  '(package-selected-packages
