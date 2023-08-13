@@ -10,7 +10,7 @@
 
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 130)
 
-(load-theme 'tango-dark)
+;;(load-theme 'tango-dark)
 
 ;; put all backup files into ~/MyEmacsBackups
 (setq backup-directory-alist '(("." . "~/.emacs.d/MyEmacsBackups")))
