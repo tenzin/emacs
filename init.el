@@ -93,10 +93,10 @@
 
 (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                (file+headline "~/gtd/inbox.org" "Tasks")
-                               "* TODO %? \nEntered on: %U\n %i\n %a" :empty-lines 1)
+                               "* TODO %? \nEntered on: %U\n %i" :empty-lines 1)
                               ("T" "Tickler" entry
                                (file+headline "~/gtd/tickler.org" "Tickler")
-                               "* %i%? \nEntered on: %U\n %i\n %a" :empty-lines 1)))
+                               "* %i%? \nEntered on: %U\n %i" :empty-lines 1)))
 
 (setq org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
                            ("~/gtd/someday.org" :level . 1)
